@@ -1,31 +1,27 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
-import Section from './Components/Section/Section ';
-// import IconSvg from './Components/IconsSvg/IconsSvg';
-import { Button, DatePicker, version } from 'antd';
-import 'antd/dist/antd.css';
+import { Routes, Route } from 'react-router-dom';
+import { useEffect, Suspense, lazy } from 'react';
+import HomePage from './Pages/HomePage/HomePage';
+const Layouts = lazy(() => import('./Components/Layouts/Layouts'));
 
-export default class App extends Component {
-  state = {};
+export default function App() {
+  useEffect(() => {}, []);
 
-  render() {
-    return (
-      <Section>
-        {/* <IconSvg
-          name="spotify-icon"
-          color="green"
-          height="30"
-          width="30"
-          className="icon-2"
-        />
-        <IconSvg name="hero" color="green" height="300" /> */}
-
-        <DatePicker />
-        <Button type="primary" style={{ marginLeft: 8 }}>
-          Primary Button
-        </Button>
-      </Section>
-    );
-  }
+  return (
+    <>
+      <Suspense fallback={<div>Загрузка...</div>}>
+        <Routes>
+          <Route path="/" element={<Layouts />}>
+            <Route
+              path="home"
+              index
+              // element={<PrivateRout component={Contact} />}
+              element={<HomePage />}
+            />
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
+  );
 }
